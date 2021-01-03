@@ -1,0 +1,9 @@
+Filesystem                                         Size  Used Avail Use% Mounted on
+/dev/sda1                                           17G  2.4G   14G  15% /
+udev                                               1.1G  4.1k  1.1G   1% /dev
+tmpfs                                              210M  300k  210M   1% /run
+none                                               5.3M     0  5.3M   0% /run/lock
+none                                               1.1G     0  1.1G   0% /run/shm
+users.isi.deterlab.net:/mnt/other/users/nv8476am   2.1T  692G  1.3T  37% /users/nv8476am
+users.isi.deterlab.net:/mnt/projects/proj/ece8476  3.1T  686G  2.2T  25% /proj/ece8476
+users.isi.deterlab.net:/mnt/share                  521G   91G  388G  19% /share

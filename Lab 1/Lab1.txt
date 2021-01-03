@@ -1,0 +1,194 @@
+Hello All, I hope you have succesfully changed your password in Deterlab!
+
+Before you start the first lab, please read the Student Introduction to Deterlab here:
+
+https://education.deterlab.net/DETERintro/DETERintro.html
+
+Then, you are ready to get started with Lab 1, which is due September 23rd. I have uploaded the instructions here:
+
+http://ece.wpi.edu/~dchasaki/Exercise_1.html
+
+Please read the whole document carefully and DO NOT directly jump to the Assignment Instructions:
+
+http://ece.wpi.edu/~dchasaki/Exercise_1.html#assignment
+
+
+1)
+
+Username: nv8476am
+Password: 
+
+Open Putty
+
+$ ssh nv8476am@users.deterlab.net
+
+Node ID:	pc200
+Project:	ece8476
+Experiment:	nv8476am-intro
+Node Type:	pc3060
+
+node1.YourExperiment.YourProject.isi.deterlab.net
+
+server.nv8476am-intro.ece8476.isi.deterlab.net:80
+
+ssh into the project id
+
+ssh pc200
+
+
+
+#make top_secret
+sudo mkdir /top_secret
+
+#find jpg and jpeg files with "intro" in the name
+sudo find . -iname "*intro*.jp*g"
+
+#move to top_secret directory
+sudo mv /etc/wuer136intro-4.JPG /top_secret/wuer136intro-4.JPG
+sudo mv /var/log/136intro-3.jpg /top_secret/136intro-3.jpg
+sudo mv /usr/share/pixmaps/xbzf136INTRO-1.jpg /top_secret/xbzf136INTRO-1.jpg
+sudo mv /dev/136intro-2jjaj.JPEG /top_secret/136intro-2jjaj.JPEG
+sudo mv /.hidden/asdf136Intro-5kqlw.jpeg /top_secret/asdf136Intro-5kqlw.jpeg
+
+#copy to "/proj/ece8476/images" (permanent directory) - this allows access from windows
+sudo cp "/top_secret/wuer136intro-4.JPG" "/proj/ece8476/images/wuer136intro-4.JPG"
+sudo cp "/top_secret/136intro-3.jpg" "/proj/ece8476/images/136intro-3.jpg"
+sudo cp "/top_secret/xbzf136INTRO-1.jpg" "/proj/ece8476/images/xbzf136INTRO-1.jpg"
+sudo cp "/top_secret/136intro-2jjaj.JPEG" "/proj/ece8476/images/136intro-2jjaj.JPEG"
+sudo cp "/top_secret/asdf136Intro-5kqlw.jpeg" "/proj/ece8476/images/asdf136Intro-5kqlw.jpeg"
+
+
+
+
+::Run on cmd.exe to copy images to local directory
+"C:\Program Files (x86)\Putty\pscp.exe" "nv8476am@users.deterlab.net:/proj/ece8476/images/*.*" "C:\Users\thoma_000\Documents\Grad School\Cryptography\Lab 1\Images"
+
+#return to ssh
+#change current directory to top_secret
+cd "/top_secret"
+
+#open nano - open with sudo in order to allow save permissions
+sudo nano
+
+#write this into the nano file
+The Fly                        /etc/wuer136intro-4.JPG
+It Came From Outer Space       /var/log/136intro-3.jpg
+Forbidden Planet               /usr/share/pixmaps/xbzf136INTRO-1.jpg
+Godzilla                       /top_secret/136intro-2jjaj.JPEG
+2001 A Space Odyssey           /.hidden/asdf136Intro-5kqlw.jpeg
+
+#save as answers.txt
+ctrl-x
+
+#copy to "/proj/ece8476/images" (permanent directory) - this allows access from windows
+sudo cp "/top_secret/answers.txt" "/proj/ece8476/images/answers.txt"
+
+::Run on cmd.exe to copy text file to local directory
+"C:\Program Files (x86)\Putty\pscp.exe" "nv8476am@users.deterlab.net:/proj/ece8476/images/*.*" "C:\Users\thoma_000\Documents\Grad School\Cryptography\Lab 1\Images"
+
+
+
+2)
+1 sentence: What goes in the /var directory on a UNIX computer?
+The var directory is a directory that files are changed during normal system us, including temporary files, emails, lock files, system log files, game saves, and print jobs. 
+
+1 sentence: What is the /dev directory for on a UNIX computer?
+The dev directory contains the drivers and files for the devices attached to the computer and integrated into the computer.
+
+On your experimental node, find out how large the disks are and how much space is free. Put this information in a separate file called top_secret/diskfree.txt. (See the infobox on command redirection for an easy way to do this.)
+
+#call df -H to get file size
+sudo df -H
+
+#output
+Filesystem                                         Size  Used Avail Use% Mounted on
+/dev/sda1                                           17G  2.4G   14G  15% /
+udev                                               1.1G  4.1k  1.1G   1% /dev
+tmpfs                                              210M  300k  210M   1% /run
+none                                               5.3M     0  5.3M   0% /run/lock
+none                                               1.1G     0  1.1G   0% /run/shm
+users.isi.deterlab.net:/mnt/other/users/nv8476am   2.1T  692G  1.3T  37% /users/nv8476am
+users.isi.deterlab.net:/mnt/projects/proj/ece8476  3.1T  686G  2.2T  25% /proj/ece8476
+users.isi.deterlab.net:/mnt/share                  521G   91G  388G  19% /share
+
+#open nano - open with sudo in order to allow save permissions
+sudo nano
+
+#write above output into the nano file
+
+#save as diskfree.txt
+ctrl-x
+
+#copy to "/proj/ece8476/images" (permanent directory) - this allows access from windows
+sudo cp "/top_secret/diskfree.txt" "/proj/ece8476/images/diskfree.txt"
+
+::Run on cmd.exe to copy text file to local directory
+"C:\Program Files (x86)\Putty\pscp.exe" "nv8476am@users.deterlab.net:/proj/ece8476/images/diskfree.txt" "C:\Users\thoma_000\Documents\Grad School\Cryptography\Lab 1\Images"
+
+
+On your experimental node, find out the "vendor id" of the experimental node's CPU model.
+Hint: there is a dynamic file on the system that includes this information.
+
+#call lscpu
+
+#output
+
+Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                4
+On-line CPU(s) list:   0-3
+Thread(s) per core:    2
+Core(s) per socket:    1
+Socket(s):             2
+NUMA node(s):          1
+Vendor ID:             GenuineIntel
+CPU family:            15
+Model:                 4
+Stepping:              3
+CPU MHz:               2992.801
+BogoMIPS:              5985.46
+L1d cache:             16K
+L2 cache:              2048K
+NUMA node0 CPU(s):     0-3
+
+#alternatively call less /proc/cpuinfo
+
+vendor_id       : GenuineIntel
+cpu family      : 15
+model           : 4
+model name      : Intel(R) Xeon(TM) CPU 3.00GHz
+stepping        : 3
+microcode       : 0x5
+cpu MHz         : 2992.801
+cache size      : 2048 KB
+physical id     : 0
+siblings        : 2
+core id         : 0
+cpu cores       : 1
+apicid          : 0
+initial apicid  : 0
+fpu             : yes
+fpu_exception   : yes
+cpuid level     : 5
+wp              : yes
+flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx lm constant_tsc pebs bts nopl pni dtes64 monitor ds_cpl cid cx16 xtpr
+bogomips        : 5985.60
+clflush size    : 64
+
+#vendor id = "GenuineIntel"
+
+
+#remove all files to avoid permission issues when copying
+sudo rm "/proj/ece8476/images/wuer136intro-4.JPG"
+sudo rm "/proj/ece8476/images/136intro-3.jpg"
+sudo rm "/proj/ece8476/images/xbzf136INTRO-1.jpg"
+sudo rm "/proj/ece8476/images/136intro-2jjaj.JPEG"
+sudo rm "/proj/ece8476/images/asdf136Intro-5kqlw.jpeg"
+sudo rm "/proj/ece8476/images/diskfree.txt"
+sudo rm "/proj/ece8476/images/answers.txt"
+
+::Run on cmd.exe to copy text file to local directory
+"C:\Program Files (x86)\Putty\pscp.exe" "C:\Users\thoma_000\Documents\Grad School\Cryptography\Lab 1\Images\*.*" "nv8476am@users.deterlab.net:/proj/ece8476/images"
+
+tar cvzf nv8476am-intro.tar.gz /proj/ece8476/images

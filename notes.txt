@@ -1,0 +1,12 @@
+Online Anonymity
+TOR
+Illegal Online Marketplaces on the TOR network
+
+Onion router - encrypted with several public keys, passed through multiple routers
+Used by Silk Road and other Black Market Marketplaces
+
+Implementing RSA in FPGA Security
+Physical Security
+Montgomery Multiplication for fast public key cryptography
+Parallelized for speed
+10 ms vs. 107 ms for RSA

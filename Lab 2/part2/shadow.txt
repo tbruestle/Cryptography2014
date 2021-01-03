@@ -1,0 +1,67 @@
+<html><head><title></title></head><body>
+<h1>FrobozzCo Memo Distribution Website</h1><h4>Got Memo?</h4><hr /><p>Select a memo from the popup menu below and click the "Read memo" button.</p><p><form method='post' name='main'>
+</p><select name="memo" >
+<option value="/home/barbazzo/memo/please_clean_microwave">please clean microwave</option>
+<option value="/home/gustar/memo/lunch_meeting_2">lunch meeting 2</option>
+<option value="/home/gustar/memo/lunch_meeting_at_grizbangs_friday_at_2:00">lunch meeting at grizbangs friday at 2:00</option>
+<option value="/home/megaboz/memo/health_insurance_plan_change">health insurance plan change</option>
+<option value="/home/megaboz/memo/heat_ac_terminated">heat ac terminated</option>
+<option value="/home/megaboz/memo/new_CEO">new CEO</option>
+<option value="/home/wilbar/memo/donuts_in_the_lobby">donuts in the lobby</option>
+<option value="/home/wilbar/memo/hack">hack</option>
+<option value="/home/wilbar/memo/mechanical_pencils-FAQ">mechanical pencils-FAQ</option>
+<option value="/home/wilbar/memo/parking_spot">parking spot</option>
+<option value="/home/wilbar/memo/post-it_notes_disappearing">post-it notes disappearing</option>
+<option value="/root/memo/disk_quotas">disk quotas</option>
+<option value="/root/memo/printer_queue_problems">printer queue problems</option>
+<option value="/root/memo/problem_with_disks">problem with disks</option>
+</select><input type="submit" name="Read memo" value="Read memo" /><hr>
+<blockquote><table border=1><tr><td><center><b></b></center></td></tr><tr><td>
+<p><b>Author:</b> root<br />
+<b>Subject:</b> <br /><b>Date:</b> Sun Nov  9 17:07:38 2014<br />
+
+</p></td></tr>
+<tr><td><p>&nbsp;</p>
+<blockquote><p>
+root:$1$ecb67a36$4WHaKM0r9eX3j8hDs4QEW/:16384:0:99999:7:::</p><p>
+daemon:*:14762:0:99999:7:::</p><p>
+bin:*:14762:0:99999:7:::</p><p>
+sys:*:14762:0:99999:7:::</p><p>
+sync:*:14762:0:99999:7:::</p><p>
+games:*:14762:0:99999:7:::</p><p>
+man:*:14762:0:99999:7:::</p><p>
+lp:*:14762:0:99999:7:::</p><p>
+mail:*:14762:0:99999:7:::</p><p>
+news:*:14762:0:99999:7:::</p><p>
+uucp:*:14762:0:99999:7:::</p><p>
+proxy:*:14762:0:99999:7:::</p><p>
+www-data:*:14762:0:99999:7:::</p><p>
+backup:*:14762:0:99999:7:::</p><p>
+list:*:14762:0:99999:7:::</p><p>
+irc:*:14762:0:99999:7:::</p><p>
+gnats:*:14762:0:99999:7:::</p><p>
+nobody:*:14762:0:99999:7:::</p><p>
+libuuid:!:14762:0:99999:7:::</p><p>
+syslog:*:14762:0:99999:7:::</p><p>
+sshd:*:14762:0:99999:7:::</p><p>
+landscape:*:14762:0:99999:7:::</p><p>
+deter:$6$/I3f6zAP$vvTqla7gJR/AkrGTiMvHW5nhPYjs2kO3L4ozw5URFzEDYaWxvtr8YeC0eof5vF2dl0LzE5eSUjKu9TBPtge4H1:14762:0:99999:7:::</p><p>
+statd:*:14763:0:99999:7:::</p><p>
+ntp:*:15265:0:99999:7:::</p><p>
+nv8476am:$1$OyvVUDPp$kBkoLkQkgFLbzWfujdMJr1:16383:0:99999:7:::</p><p>
+mysql:!:16383:0:99999:7:::</p><p>
+wilbar:$1$fRqkTieO$w25jISnCEBihVb/s.c.lX0:16383:0:99999:7:::</p><p>
+megaboz:$1$9hfkqg8Y$9ISt4JPDqQq.Ik6..rZXo1:16383:0:99999:7:::</p><p>
+barbazzo:$1$UKoOQUPw$vtrmLJpKLSKoV6LTlbJBD1:16383:0:99999:7:::</p><p>
+gustar:$1$YSSC3aFg$l6bRcjnZmmRAQV30Sxe.R/:16383:0:99999:7:::</p><p>
+</p></blockquote>
+<p>&nbsp;</p></td></tr></table></blockquote><hr>
+<h2>To publish a memo:</h2>
+<ol>
+<li>Create a directory named 'memo' in your home directory.</li>
+<li>Edit text files in that directory.</li>
+<li>Save the file using underscores (_) for spaces, e.g. "free_lunch".</li>
+</ol>
+
+<p>To remove your memo from publication, simply delete the file from tme memo directory.</p></form>
+</body></html>

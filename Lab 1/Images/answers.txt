@@ -1,0 +1,24 @@
+Thomas Bruestle
+thomas@bruestle.net
+nv8476am
+
+The Fly                        /etc/wuer136intro-4.JPG                  
+
+It Came From Outer Space       /var/log/136intro-3.jpg                  
+
+Forbidden Planet               /usr/share/pixmaps/xbzf136INTRO-1.jpg    
+
+Godzilla                       /top_secret/136intro-2jjaj.JPEG          
+
+2001 A Space Odyssey           /.hidden/asdf136Intro-5kqlw.jpeg         
+
+
+
+1 sentence: What goes in the /var directory on a UNIX computer?
+The var directory is a directory that files are changed during normal system us, including temporary files, emails, lock files, system log files, game saves, and print jobs. 
+
+1 sentence: What is the /dev directory for on a UNIX computer?
+The dev directory contains the drivers and files for the devices attached to the computer and integrated into the computer.
+
+
+#vendor id = "GenuineIntel"

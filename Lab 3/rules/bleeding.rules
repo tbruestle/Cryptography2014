@@ -1,0 +1,113 @@
+#
+# $Id: bleeding.rules,v 1.6 2007/09/23 23:03:36 root Exp $
+# Bleeding Edge Threats rules. 
+#
+# SID's are 2000000+ to avoid conflicts
+#
+# More information available at www.bleedingthreats.net
+#
+# Please submit any custom rules or ideas to bleeding@bleedingthreats.net or the bleeding-sigs mailing list
+#
+#*************************************************************
+#  Copyright (c) 2003-2007, Bleeding Edge Threats
+#  All rights reserved.
+#  
+#  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the 
+#  following conditions are met:
+#  
+#  * Redistributions of source code must retain the above copyright notice, this list of conditions and the following 
+#    disclaimer.
+#  * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the 
+#    following disclaimer in the documentation and/or other materials provided with the distribution.
+#  * Neither the name of the nor the names of its contributors may be used to endorse or promote products derived 
+#    from this software without specific prior written permission.
+#  
+#  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES, 
+#  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+#  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+#  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE 
+#  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+#
+#
+#By Scott Melnick
+#You should never get a Private DNS address from a Remote DNS Server
+#Disable or modify this rule if your DNS server is not on your HOME_NET and is issuing Private IP's
+alert udp $EXTERNAL_NET 53 -> $HOME_NET any (msg:"BLEEDING-EDGE CURRENT EVENTS DNS-Rebinding Attack 192.168.x.x/16 (local IP from remote DNS Server)"; content: "|c0 0c 00 01 00 01|"; content: "|00 04 c0 a8|"; within:4; distance:4; reference:url,crypto.stanford.edu/dns/; classtype:misc-attack; sid:2006913; rev:4;)
+alert udp $EXTERNAL_NET 53 -> $HOME_NET any (msg:"BLEEDING-EDGE CURRENT EVENTS DNS-Rebinding Attack 10.x.x.x /8 (local IP from remote DNS Server)"; content: "|c0 0c 00 01 00 01|"; content: "|00 04 0a|"; within:3; distance:4; reference:url,crypto.stanford.edu/dns/; classtype:misc-attack; sid:2006914; rev:4;)
+alert udp $EXTERNAL_NET 53 -> $HOME_NET any (msg:"BLEEDING-EDGE CURRENT EVENTS DNS-Rebinding Attack 172.16.x.x/12 (local IP from remote DNS Server)"; content: "|c0 0c 00 01 00 01|"; content: "|00 04 ac|"; within:3; distance:4; pcre:"/\xac+[\x10|\x11|\x12|\x13|\x14|\x15|\x16|\x17|\x18|\x19|\x1a|\x1b|\x1c|\x1d|\x1e|\x1f]/"; reference:url,crypto.stanford.edu/dns/; classtype:misc-attack; sid:2006915; rev:3;)
+alert udp $EXTERNAL_NET 53 -> $HOME_NET any (msg:"BLEEDING-EDGE CURRENT EVENTS DNS-Rebinding Attack 127.0.01 address (local IP from remote DNS Server)"; content: "|c0 0c 00 01 00 01|"; content: "|00 04 7f 00 00 01|"; within:6; distance:4; reference:url,crypto.stanford.edu/dns/; classtype:misc-attack; sid:2006916; rev:3;)
+alert tcp $EXTERNAL_NET 53 -> $HOME_NET any (msg:"BLEEDING-EDGE CURRENT EVENTS DNS-Rebinding Attack 192.168.x.x/16 (local IP from remote DNS Server)"; flow:established,from_server; content: "|c0 0c 00 01 00 01|"; content: "|00 04 c0 a8|"; within:4; distance:4; reference:url,crypto.stanford.edu/dns/; classtype:misc-attack; sid:2006917; rev:5;)
+alert tcp $EXTERNAL_NET 53 -> $HOME_NET any (msg:"BLEEDING-EDGE CURRENT EVENTS DNS-Rebinding Attack 10.x.x.x /8 (local IP from remote DNS Server)"; flow:established,from_server; content: "|c0 0c 00 01 00 01|"; content: "|00 04 0a|"; within:3; distance:4; reference:url,crypto.stanford.edu/dns/; classtype:misc-attack; sid:2006918; rev:5;)
+alert tcp $EXTERNAL_NET 53 -> $HOME_NET any (msg:"BLEEDING-EDGE CURRENT EVENTS DNS-Rebinding Attack 172.16.x.x/12 (local IP from remote DNS Server)"; flow:established,from_server; content: "|c0 0c 00 01 00 01|"; content: "|00 04 ac|"; within:3; distance:4;  pcre:"/\xac+[\x10|\x11|\x12|\x13|\x14|\x15|\x16|\x17|\x18|\x19|\x1a|\x1b|\x1c|\x1d|\x1e|\x1f]/";  reference:url,crypto.stanford.edu/dns/; classtype:misc-attack; sid:2006919; rev:4;)
+alert tcp $EXTERNAL_NET 53 -> $HOME_NET any (msg:"BLEEDING-EDGE CURRENT EVENTS DNS-Rebinding Attack 127.0.0.1 address (local IP from remote DNS Server)"; flow:established,from_server; content: "|c0 0c 00 01 00 01|"; content: "|00 04 7f 00 00 01|"; within:6; distance:4; reference:url,crypto.stanford.edu/dns/; classtype:misc-attack; sid:2006920; rev:4;)
+
+#by Scott Melnick
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"BLEEDING-EDGE CURRENT_EVENTS FireFox Remote Command EXE Mailto Link Detected"; flow: from_server,established; content:"mailto\:%"; nocase; content: "/../../"; within:30; nocase; pcre:"/(\.exe|\.bat|\.com)/i"; reference:url,xs-sniper.com/blog/remote-command-exec-firefox-2005/; classtype:web-application-attack; sid:2006436; rev:1;)
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"BLEEDING-EDGE CURRENT_EVENTS FireFox Remote Command EXE News Link Detected"; flow: from_server,established; content:"news\:%"; nocase; content: "/../../"; within:30; nocase; pcre:"/(\.exe|\.bat|\.com)/i"; reference:url,xs-sniper.com/blog/remote-command-exec-firefox-2005/; classtype:web-application-attack; sid:2006437; rev:1;)
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"BLEEDING-EDGE CURRENT_EVENTS FireFox Remote Command EXE Nntp Link Detected"; flow: from_server,established; content:"nntp\:%"; nocase; content: "/../../"; within:30; nocase; pcre:"/(\.exe|\.bat|\.com)/i"; reference:url,xs-sniper.com/blog/remote-command-exec-firefox-2005/; classtype:web-application-attack; sid:2006438; rev:1;)
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"BLEEDING-EDGE CURRENT_EVENTS FireFox Remote Command EXE Snews Link Detected"; flow: from_server,established; content:"snews\:%"; nocase; content: "/../../"; within:30; nocase; pcre:"/(\.exe|\.bat|\.com)/i"; reference:url,xs-sniper.com/blog/remote-command-exec-firefox-2005/; classtype:web-application-attack; sid:2006439; rev:1;)
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"BLEEDING-EDGE CURRENT_EVENTS FireFox Remote Command EXE Telnet Link Detected"; flow: from_server,established; content:"telnet\:%"; nocase; content: "/../../"; within:30; nocase; pcre:"/(\.exe|\.bat|\.com)/i"; reference:url,xs-sniper.com/blog/remote-command-exec-firefox-2005/; classtype:web-application-attack; sid:2006440; rev:1;)
+
+#may not last long, so putting this in current events until more information and a better sig is available. 
+#matt Jonkman
+#set for deletion
+#alert tcp $EXTERNAL_NET $HTTP_PORTS -> $HOME_NET any (msg:"BLEEDING-EDGE CURRENT EVENTS Microsoft XMLHTTPD CLSID in use - Possible Attack"; flow:from_server,established; content:"CLSID"; nocase; content:"88d969c5-f192-11d4-a65f-0040963251e5"; nocase; classtype:web-application-activity; reference:url,www.frsirt.com/english/advisories/2006/4334; reference:url,www.microsoft.com/technet/security/advisory/927892.mspx; reference:url,www.microsoft.com/technet/security/Bulletin/MS06-071.mspx; reference:cve,2006-5745; sid:2003169; rev:3;)
+
+#simple sig, but should work for the time being
+#by Matt Jonkman
+alert tcp any any -> $HOME_NET $HTTP_PORTS (msg:"BLEEDING-EDGE CURRENT_EVENTS MS IIS Auth Bypass Attempt"; flow:established,to_server; uricontent:"Webhitsfile="; uricontent:"CiRestriction="; uricontent:"CiHiliteType=full"; classtype:attempted-admin; reference:url,support.microsoft.com/kb/328832; sid:2004115; rev:1;)
+
+
+#by dajackman
+alert tcp $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS (msg:"BLEEDING-EDGE TROJAN TROJ_ANICMOO.AX Downloading wincf.exe"; uricontent:"/wincf.exe"; threshold:type limit, track by_src, count 1, seconds 60; classtype:trojan-activity; reference:url,uk.trendmicro-europe.com/enterprise/vinfo/encyclopedia.php?LYstr=VMAINDATA&vNav=3&VName=TROJ_ANICMOO.AX; sid:2003521; rev:1;)
+alert tcp $HOME_NET any -> 61.218.38.35 $HTTP_PORTS (msg:"BLEEDING-EDGE TROJAN PossibleExploit-W32/Ani.C Traffic"; flags:S,12; threshold:type limit, track by_src, count 1, seconds 60; classtype:trojan-activity; reference:url,www.f-secure.com/v-descs/trojan-downloader_w32_small_ekv.shtml; sid:2003522; rev:1;)
+alert tcp $HOME_NET any -> 220.71.76.189 $HTTP_PORTS (msg:"BLEEDING-EDGE TROJAN Possible Exploit-W32/Ani.C Traffic"; flags:S,12; threshold:type limit, track by_src, count 1, seconds 60; classtype:trojan-activity; reference:url,www.f-secure.com/v-descs/trojan-downloader_w32_small_ekv.shtml; sid:2003523; rev:1;)
+
+#by Matt Jonkman, from ISC post, idea from Russ McRee
+alert tcp $EXTERNAL_NET $HTTP_PORTS -> $HOME_NET any (msg:"BLEEDING-EDGE CURRENT EVENTS Likely ANI Exploit Include from Webpage"; flow:established,from_server; content:"<DIV"; nocase; content:"style"; nocase; within:10; content:"CURSOR\:"; nocase; within:12; pcre:"/<DIV\s+style=\"CURSOR\:\s*url\(\s*http\:\/\/[a-zA-Z0-9\.\/]+\s*\)\s*\">\s*<\s*\/\s*DIV\s*>/ism"; classtype:misc-attack; reference:url,isc.sans.org/diary.html?storyid=2648; sid:2003596; rev:3;)
+
+#by Matt Jonkman
+#Temporary, till the patch is widespread
+alert tcp $EXTERNAL_NET $HTTP_PORTS -> $HOME_NET any (msg:"BLEEDING-EDGE CURRENT_EVENTS Vulnerable MS FlashPix ActiveX Control in Use"; flow:established,from_server;  content:"CLSID"; nocase; content:"{201EA564-A6F6-11D1-811D-00C04FB6BD36}"; distance:0; nocase; classtype:web-application-activity; reference:url,secunia.com/advisories/26426/; sid:2007342; rev:2;)
+
+#temporary to help out an investigation via markmonitor
+alert tcp $HOME_NET any -> 209.160.73.12 $HTTP_PORTS (msg:"BLEEDING-EDGE CURRENT_EVENTS Traffic to Phishing Master Server -- Please report hits to phishevent@bleedingthreats.net"; flow:established; reference:url,doc.bleedingthreats.net/2007619; sid:2007619; rev:1;)
+
+
+#idea submitted anonymously, sig should catch the malware download url the storm work uses
+alert tcp $HOME_NET any -> $EXTERNAL_NET any (msg:"BLEEDING-EDGE TROJAN Storm Worm HTTP Request"; flow:established,to_server; content:"GET "; depth:4; offset:0; uricontent:"/?"; pcre:"/GET \/\?[0-9a-f]{16}/Ui"; pcre:"/Host\: [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/i"; classtype:trojan-activity; sid:2006411; rev:4;)
+
+
+#by Matt jonkman, info from many sources
+alert icmp any any -> any any (msg:"BLEEDING-EDGE CURRENT EVENTS Storm Worm ICMP DDOS Traffic"; itype:8; icode:0; dsize:32; content:"abcdefghijklmnopqr|00 00|"; depth:22; threshold:type both, track by_src, count 1, seconds 60; classtype:trojan-activity; sid:2007618; rev:3;)
+
+#by matt jonkman
+# some new bot. uses some new C&C method, this should detect it. Haven't decrypted the comunication yet
+# AV does not have a name for it yet
+alert tcp $HOME_NET any -> $EXTERNAL_NET 1024:65535 (msg:"BLEEDING-EDGE CURRENT_EVENTS Unknown Bot initial connection open"; flow:established,to_server; dsize:2; content:"|0002|";  classtype:trojan-activity; flowbits:noalert; flowbits:set,BS.unknown.start; sid:2006358; rev:1;)
+alert tcp $HOME_NET any -> $EXTERNAL_NET 1024:65535 (msg:"BLEEDING-EDGE CURRENT_EVENTS Unknown Bot connection second step"; flowbits:isset,BS.unknown.start; flow:established,to_server; dsize:64; classtype:trojan-activity; flowbits:noalert; flowbits:set,BS.unknown.2; sid:2006359; rev:1;)
+alert tcp $EXTERNAL_NET 1024:65535 -> $HOME_NET 1024:65535 (msg:"BLEEDING-EDGE CURRENT_EVENTS Unknown Bot C&C Channel -- Please report to bleeding@bleedingthreats.net"; flowbits:isset,BS.unknown.2; flow:established,from_server; dsize:64; classtype:trojan-activity; tag:session; sid:2006360; rev:1;)
+
+#by matt Jonkman, sample submitted anonymously
+# I'm putting these sigs in current events because the worm will likely morph quickly making them obsolete. 
+# If it doesn't we'll move these into a permanent ruleset
+alert tcp $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS (msg:"BLEEDING-EDGE CURRENT EVENTS Worm.Pyks HTTP C&C Traffic (User-Agent skw00001)"; flow:established,to_server; content:"User-Agent\: skw000"; depth:50; classtype:trojan-activity; reference:url,doc.bleedingthreats.net/2003588; sid:2003588; rev:1;)
+alert tcp $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS (msg:"BLEEDING-EDGE CURRENT EVENTS Worm.Pyks HTTP C&C Post Traffic (User-Agent h9tslbw0)"; flow:established,to_server; content:"User-Agent\: h9tslbw0"; depth:50; classtype:trojan-activity; reference:url,doc.bleedingthreats.net/2003589; sid:2003589; rev:1;)
+
+#by axnjxn
+#based on referenced article by Pedro Bueno
+#Initial experiments on writing good sigs. These are dependant on the exact variant, but we may learn something
+alert tcp $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS (msg:"BLEEDING-EDGE CURRENT EVENTS Possible XML Controlled Trojan (UrlMonitor.100.z.img)"; flow:established,to_server; content:"<dll"; nocase; content:"url="; distance:0; nocase; content:"UrlMonitor.100.z.img"; nocase; distance:0; classtype:trojan-activity; reference:url,www.avertlabs.com/research/blog/index.php/2007/06/12/xml-controlled-trojans/; sid:2005313; rev:1;)
+alert tcp $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS (msg:"BLEEDING-EDGE CURRENT EVENTS Possible XML Controlled Trojan (core.101.z.img)"; flow:established,to_server; content:"<dll"; nocase; content:"url="; distance:0; nocase; content:"core.101.z.img"; nocase; distance:0; classtype:trojan-activity; reference:url,www.avertlabs.com/research/blog/index.php/2007/06/12/xml-controlled-trojans/; sid:2005314; rev:1;)
+alert tcp $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS (msg:"BLEEDING-EDGE CURRENT EVENTS Possible XML Controlled Trojan (Notifier.104.z.img)"; flow:established,to_server; content:"<dll"; nocase; content:"url="; distance:0; nocase; content:"Notifier.104.z.img"; nocase; distance:0; classtype:trojan-activity; reference:url,www.avertlabs.com/research/blog/index.php/2007/06/12/xml-controlled-trojans/; sid:2005315; rev:1;)
+alert tcp $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS (msg:"BLEEDING-EDGE CURRENT EVENTS Possible XML Controlled Trojan (bootup.exe.xml)"; flow:established,to_server; content:"<dll"; nocase; content:"url="; distance:0; nocase; content:"bootup.exe.xml"; nocase; distance:0; classtype:trojan-activity; reference:url,www.avertlabs.com/research/blog/index.php/2007/06/12/xml-controlled-trojans/; sid:2005316; rev:1;)
+alert tcp $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS (msg:"BLEEDING-EDGE CURRENT EVENTS Possible XML Controlled Trojan (UrlMonitor.xml)"; flow:established,to_server; content:"<dll"; nocase; content:"url="; distance:0; nocase; content:"UrlMonitor.xml"; nocase; distance:0; classtype:trojan-activity; reference:url,www.avertlabs.com/research/blog/index.php/2007/06/12/xml-controlled-trojans/; sid:2005317; rev:1;)
+
+#by axnjxn
+alert tcp $EXTERNAL_NET $HTTP_PORTS -> $HOME_NET any (msg:"BLEEDING-EDGE CURRENT EVENTS Yahoo Messenger CLSID - Possible Attack"; flow:from_server,established; content:"CLSID"; nocase; content:"DCE2F8B1-A520-11D4-8FD0-00D0B7730277"; nocase; distance:0; within:50; classtype:attempted-admin; reference:url,www.kb.cert.org/vuls/id/949817; sid:2004599; rev:1;)
+
+#Yahoo Messenger YVerInfo.dll ActiveX Multiple Remote Buffer Overflow Vulnerabilities
+alert tcp $EXTERNAL_NET $HTTP_PORTS -> $HOME_NET any (msg:"BLEEDING-EDGE CURRENT EVENTS Yahoo Messenger Vulnerable YVerInfo.dll CLSID in use - Possible Attack"; flow:from_server,established; content:"D5184A39-CBDF-4A4F-AC1A-7A45A852C883"; nocase; classtype:web-application-activity; reference:url,labs.idefense.com/intelligence/vulnerabilities/display.php?id=591; reference:url,messenger.yahoo.com/security_update.php?id=082907; sid:2007586; rev:1;)
+

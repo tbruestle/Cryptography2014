@@ -1,0 +1,171 @@
+<NetworkSensorConfiguration daemonize="yes" debug="no" threaded="yes">
+   <Device pcap="no" time-out-msec="500" name="DRAGON-DEFAULT">
+      <Interface name="eth0"/>
+   </Device>
+   <SearchEngines search-groups="1" threads-per-group="1" mq-size="1024" buffer-mq="yes" pre-capture-buffer-size="0" pre-capture-all-events="no" adaptive="yes" disable="no"/>
+   <PerformanceReport seconds="0" packets="0" sniffer-only="no" no-search="no" 
+                packet-length="no" ports-stats="no"/>
+   <Heartbeat rate="60" rollover="0"/>
+   <SensorConfig name="DRAGON-DEFAULT" default="no">
+      <Configuration>
+         <ProtectedNetwork internal-same-as-from="no">
+            <Network ip="0.0.0.0" mask="24"/>
+         </ProtectedNetwork>
+         <Logging ring-buffer="yes" alarmlog-file="no" alarmlog-display="no" 
+                  local-db="no" swatch="no">
+         </Logging>
+		 <SNMPTrap disable="yes" object-id="1.3.6.1.4.1.4471"/>
+         <ProbeDetection disable="no" verbose="yes" debug="no"
+                         protocol-scan="3" protocol-ping="10" 
+                         ports-per-host="5" hosts-per-port="5"
+                         distributed-ports-per-host="5" distributed-hosts-per-port="5"
+                         max-threshold="50000">
+            <PortRange low="0" high="1023" direction="toward"/>
+            <PortRange low="1032" high="1032" direction="toward"/>
+            <PortRange low="1257" high="1257" direction="toward"/>
+            <PortRange low="1520" high="1530" direction="toward"/>
+            <PortRange low="2049" high="2049" direction="toward"/>
+            <PortRange low="2301" high="2301" direction="toward"/>
+            <PortRange low="2745" high="2745" direction="toward"/>
+            <PortRange low="3127" high="3127" direction="toward"/>
+            <PortRange low="3306" high="3306" direction="toward"/>
+            <PortRange low="6000" high="6010" direction="toward"/>
+            <PortRange low="6112" high="6112" direction="toward"/>
+            <PortRange low="6129" high="6129" direction="toward"/>
+            <PortRange low="8999" high="8999" direction="toward"/>
+            <PortRange low="20168" high="20168" direction="toward"/>
+            <PortRange low="32700" high="33430" direction="toward"/>
+            <PortRange low="65506" high="65506" direction="toward"/>
+         </ProbeDetection>
+         <ActiveResponse disable="yes" interface="eth0" tcp-ecm="no"/>
+         <Dynamic cushion="0" logging="yes"/>
+         <NetworkLayer log-localhost-traffic="yes" same-address="yes" null-address="yes"
+                       favor-old="yes" resv-bit="yes" tcp-frag-first-packet="yes"
+                       tcp-frag-flags-overlay="yes" frag-small="32"
+                       frag-large="yes" options-check="yes" drop-ttl="2" log-ttl="0"
+                       max-mtu="1500" max-mtu-verbose="yes" frag-rebuild-hash="3301"
+                       disable="no" verbose="no" debug="no" frag-rebuild="yes" frag-rebuild-size="low">
+         </NetworkLayer>
+         <TCPState max-sessions="50000" action="none" disable="no"/>
+         <TransportLayer port-zero="no"
+                         syn-data-max="10" syn-nonzero="yes" tcp-options-check="no"
+                         syn-bomb-threshold="500" trust="no" disable="no" debug="no"
+                         verbose="yes">
+            <StreamRebuilding force-rebuild="yes" min-length="3" rebuild-to="yes" 
+                              rebuild-from="yes" rebuild-all="yes" session-window="100"
+                              disable="no" debug="no" verbose="no" session-window-size="high"
+                              session-rebuild-size="high"/>
+        <Flags flags="SF"/>
+        <Flags flags="SR"/>
+        <Flags flags="FSRPAU"/>
+        <Flags flags="FSRPU"/>
+        <Flags flags="N"/>
+        <Flags flags="FUP"/>
+        <Flags flags="FSR"/>
+         </TransportLayer>
+         <RPCAnalysis verbose="no" any-port="no" inbound-only="yes" disable="no" debug="no">
+           <PortMacroName name="R"/>
+         </RPCAnalysis>
+         <TelnetAnalysis debug="no" verbose="no" disable="no" binary="yes" bad-cmd="yes">
+           <Port port="23"/>
+         </TelnetAnalysis>
+         <FTPAnalysis verbose="no" debug="no" disable="no" port-request-check="yes">
+            <Port port="21"/>
+         </FTPAnalysis>
+         <DNSAnalysis verbose="no" debug="no" disable="no">
+            <Port port="53"/>
+         </DNSAnalysis>
+         <FingerAnalysis verbose="no" debug="no" disable="no">
+            <Port port="79"/>
+         </FingerAnalysis>
+         <SNMPAnalysis verbose="no" debug="no" disable="no">
+            <Port port="161"/>
+         </SNMPAnalysis>
+         <HTTPAnalysis verbose="no" unicode="yes" iis-unicode="yes" 
+                      multi-method="yes" null-method="no" doc-root="no" fast-analyze="yes" debug="no" disable="no">
+            <Port port="80" direction="toward"/>
+            <Port port="8080" direction="toward"/>
+            <Port port="3128" direction="toward"/>
+         </HTTPAnalysis>
+         <RIPAnalysis verbose="no" debug="no" disable="no"/>
+         <H225Analysis verbose="no" debug="no" disable="no">
+         <Port port="1720" />
+         </H225Analysis>
+         <SIPAnalysis verbose="no" debug="no" disable="no">
+         <Port port="5060" />
+         </SIPAnalysis>
+         <SMBAnalysis log-netbios-session-failures="yes" log-remote-session-attempts="yes" 
+                      log-admin-login-attempts="yes" log-null-login-attempts="yes"
+                      debug="no" disable="no" verbose="no">
+            <Port port="135"/>
+            <Port port="445"/>
+            <PortRange direction="any" low="137" high="139"/>
+         </SMBAnalysis>
+         <ICMPAnalysis large="1400" debug="no" disable="no" verbose="no">
+         </ICMPAnalysis>
+         <DoSCheck verbose="no" debug="no" disable="no"/>
+         <CovertChannelAnalysis loki-check="yes" 
+                                debug="no" disable="no" verbose="no"/>
+        <PortMacro name="W">
+                <Port direction="any" port="80" />
+                <Port direction="any" port="8080" />
+                <Port direction="any" port="3128" />
+        </PortMacro>
+        <PortMacro name="U">
+                <Port direction="any" port="22" />
+                <Port direction="any" port="53" />
+                <Port direction="any" port="143" />
+                <Port direction="any" port="443" />
+                <Port direction="any" port="2049" />
+        </PortMacro>
+        <PortMacro name="N">
+                <Port direction="any" port="23" />
+                <Port direction="any" port="53" />
+                <Port direction="any" port="80" />
+                <Port direction="any" port="135" />
+                <Port direction="any" port="139" />
+        </PortMacro>
+        <PortMacro name="X">
+                <PortRange direction="any" low="6000" high="6070" />
+        </PortMacro>
+        <PortMacro name="H">
+                <PortRange direction="any" low="1024" high="65535" />
+        </PortMacro>
+        <PortMacro name="L">
+                <PortRange direction="any" low="0" high="1023" />
+        </PortMacro>
+        <PortMacro name="A">
+                <PortRange direction="any" low="0" high="65535" />
+        </PortMacro>
+        <PortMacro name="M">
+                <Port direction="any" port="161" />
+                <Port direction="any" port="162" />
+                <PortRange direction="any" low="32770" high="32800" />
+        </PortMacro>
+        <PortMacro name="S">
+                <NotPort direction="any" port="22" />
+        </PortMacro>
+        <PortMacro name="B">
+                <NotPort direction="any" port="80" />
+        </PortMacro>
+        <PortMacro name="P">
+                <Port direction="any" port="21" />
+                <Port direction="any" port="80" />
+                <Port direction="any" port="119" />
+        </PortMacro>
+        <PortMacro name="Q">
+                <PortRange direction="any" low="27900" high="27999" />
+        </PortMacro>
+        <PortMacro name="T">
+                <Port direction="any" port="21" />
+                <Port direction="any" port="23" />
+        </PortMacro>
+        <PortMacro name="R">
+                <Port direction="any" port="111" />
+                <PortRange direction="any" low="32768" high="32900" />
+        </PortMacro>
+      </Configuration>
+      <NetworkSignatures>
+      </NetworkSignatures>
+   </SensorConfig>
+</NetworkSensorConfiguration>
